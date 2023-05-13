@@ -1,0 +1,35 @@
+.active {
+  background-color: rgb(26, 127, 93);
+  color: white;
+}
+
+.toggler {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: bisque;
+  border-radius: 15px 15px 0 0;
+  width: 100%;
+  color: black;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.login, .register {
+  width: 100%;
+}
+
+.login {
+  border-radius: 15px 0 0 0;
+  border-right: 2px solid black;
+}
+
+.register {
+  border-radius: 0 15px 0 0;
+}
+
+.text {
+  text-align: center;
+  width: 100%;
+}

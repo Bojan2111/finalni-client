@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../UI/Modal";
-import classes from "./UserLogin.module.css";
+import LoginRegisterToggler from "./LoginRegisterToggler";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 const UserLogin = (props) => {
   const [isRegisterFormShown, setIsRegisterFormShown] = useState(false);
@@ -21,23 +23,14 @@ const UserLogin = (props) => {
 
   return (
     <Modal onClose={props.onClose}>
-      {isRegisterFormShown && registerModalContent}
-      {isLoginFormShown && loginModalContent}
+      <LoginRegisterToggler
+        isLogin={isLoginFormShown}
+        showLogin={showLoginHandler}
+        showRegister={showRegisterHandler}
+      />
+      {isRegisterFormShown && <RegisterForm />}
+      {isLoginFormShown && <LoginForm />}
       <div>
-        <div>
-          <button
-            className={isLoginFormShown ? classes.active : ""}
-            onClick={showLoginHandler}
-          >
-            Login
-          </button>
-          <button
-            className={isRegisterFormShown ? classes.active : ""}
-            onClick={showRegisterHandler}
-          >
-            Register
-          </button>
-        </div>
         <button onClick={props.onClose}>Close</button>
       </div>
     </Modal>
