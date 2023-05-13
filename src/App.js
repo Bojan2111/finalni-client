@@ -1,5 +1,7 @@
 import React from "react";
-import Header from "./components/UI/Header";
+import Header from "./components/Layout/Header";
+import Content from "./components/Layout/Content";
+
 import logo from "./img/kurirska-sluzba.png";
 
 const headerData = {
@@ -18,9 +20,7 @@ function App() {
   return (
     <div>
       <Header headerData={headerData} />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
+      <Content />
     </div>
   );
 }
