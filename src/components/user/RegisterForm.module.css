@@ -1,3 +1,8 @@
+.register-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .form {
   margin: 1rem 0;
   height: 19rem;
@@ -61,4 +66,17 @@
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;
+}
+
+.instructions {
+  margin-left: 6px;
+}
+
+.instructions-title, .instructions p {
+  margin: 0;
+  padding: 0;
+}
+
+.instructions p, .instructions ul {
+  font-size: 12px;
 }

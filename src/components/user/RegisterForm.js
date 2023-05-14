@@ -79,38 +79,59 @@ const RegisterForm = (props) => {
   }`;
 
   return (
-    <form onSubmit={confirmHandler}>
-      <div className={nameControlClasses}>
-        <label htmlFor="username">Username</label>
-        <input type="text" id="username" ref={nameInputRef} />
-        {!formInputsValidity.username && <p>Please enter a valid username!</p>}
+    <div className={classes["register-container"]}>
+      <form onSubmit={confirmHandler}>
+        <div className={nameControlClasses}>
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" ref={nameInputRef} />
+          {!formInputsValidity.username && (
+            <p>Please enter a valid username!</p>
+          )}
+        </div>
+        <div className={emailControlClasses}>
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" ref={emailInputRef} />
+          {!formInputsValidity.email && <p>Please enter a valid email!</p>}
+        </div>
+        <div className={passwordControlClasses}>
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" ref={passwordInputRef} />
+          {!formInputsValidity.password && (
+            <p>Please enter a valid password!</p>
+          )}
+        </div>
+        <div className={repeatPasswordControlClasses}>
+          <label htmlFor="repeatPassword">Repeat password</label>
+          <input
+            type="password"
+            id="repeatPassword"
+            ref={repeatPasswordInputRef}
+          />
+          {!formInputsValidity.repeatPassword && <p>Passwords must match!</p>}
+        </div>
+        <div className={classes.actions}>
+          <button type="button" onClick={props.onCancel}>
+            Cancel
+          </button>
+          <button className={classes.submit}>Confirm</button>
+        </div>
+      </form>
+      <div className={classes.instructions}>
+        <h3 className={classes["instructions-title"]}>Register Instructions</h3>
+        <p>Please follow these requirements:</p>
+        <ul>
+          <li>
+            Username must be between 3 and 32 characters, can contain letters,
+            numbers and ".", "_" or "-".
+          </li>
+          <li>
+            Password must be between 6 and 20 characters, must contain at least
+            one UPPERCASE, one lowercase character, one number and one special
+            character {"!@#$%^&*()-_=+{};:,<.>"}
+          </li>
+        </ul>
       </div>
-      <div className={emailControlClasses}>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" ref={emailInputRef} />
-        {!formInputsValidity.email && <p>Please enter a valid email!</p>}
-      </div>
-      <div className={passwordControlClasses}>
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" ref={passwordInputRef} />
-        {!formInputsValidity.password && <p>Please enter a valid password!</p>}
-      </div>
-      <div className={repeatPasswordControlClasses}>
-        <label htmlFor="repeatPassword">Repeat password</label>
-        <input
-          type="password"
-          id="repeatPassword"
-          ref={repeatPasswordInputRef}
-        />
-        {!formInputsValidity.repeatPassword && <p>Passwords must match!</p>}
-      </div>
-      <div className={classes.actions}>
-        <button type="button" onClick={props.onCancel}>
-          Cancel
-        </button>
-        <button className={classes.submit}>Confirm</button>
-      </div>
-    </form>
+    </div>
   );
 };
 
