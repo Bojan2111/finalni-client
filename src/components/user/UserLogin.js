@@ -18,8 +18,23 @@ const UserLogin = (props) => {
     setIsRegisterFormShown(true);
   };
 
-  const loginModalContent = <div>Here is Login</div>;
-  const registerModalContent = <div>Here is Register</div>;
+  const confirmLoginHandler = (userData) => {
+    console.log(
+      `We received following data:\n` +
+        `Username: ${userData.username}\n` +
+        `Password: ${userData.password}`
+    );
+  };
+
+  const confirmRegisterHandler = (userData) => {
+    console.log(
+      `We received following data:
+        Username: ${userData.username}
+        Email: ${userData.email}
+        Password: ${userData.password}
+        Confirmed password: ${userData.repeatPassword}`
+    );
+  };
 
   return (
     <Modal onClose={props.onClose}>
@@ -28,11 +43,15 @@ const UserLogin = (props) => {
         showLogin={showLoginHandler}
         showRegister={showRegisterHandler}
       />
-      {isRegisterFormShown && <RegisterForm />}
-      {isLoginFormShown && <LoginForm />}
-      <div>
-        <button onClick={props.onClose}>Close</button>
-      </div>
+      {isRegisterFormShown && (
+        <RegisterForm
+          onConfirm={confirmRegisterHandler}
+          onCancel={props.onClose}
+        />
+      )}
+      {isLoginFormShown && (
+        <LoginForm onConfirm={confirmLoginHandler} onCancel={props.onClose} />
+      )}
     </Modal>
   );
 };
