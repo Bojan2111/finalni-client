@@ -52,24 +52,48 @@ const LoginForm = (props) => {
   }`;
 
   return (
-    <form onSubmit={confirmHandler}>
-      <div className={usernameControlClasses}>
-        <label htmlFor="username">Userame</label>
-        <input type="text" id="username" ref={usernameInputRef} />
-        {!formInputsValidity.username && <p>Please enter a valid username!</p>}
-      </div>
-      <div className={passwordControlClasses}>
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" ref={passwordInputRef} />
-        {!formInputsValidity.password && <p>Please enter a valid password!</p>}
-      </div>
-      <div className={classes.actions}>
-        <button type="button" onClick={props.onCancel}>
-          Cancel
-        </button>
-        <button className={classes.submit}>Confirm</button>
-      </div>
-    </form>
+    <div className={classes["login-container"]}>
+      <form onSubmit={confirmHandler}>
+        <div className={usernameControlClasses}>
+          <label htmlFor="username">Userame</label>
+          <input type="text" id="username" ref={usernameInputRef} />
+          {!formInputsValidity.username && (
+            <p>Please enter a valid username!</p>
+          )}
+        </div>
+        <div className={passwordControlClasses}>
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" ref={passwordInputRef} />
+          {!formInputsValidity.password && (
+            <p>Please enter a valid password!</p>
+          )}
+        </div>
+        <div className={classes.actions}>
+          <button type="button" onClick={props.onCancel}>
+            Cancel
+          </button>
+          <button className={classes.submit}>Confirm</button>
+        </div>
+      </form>
+      {!props.isRegistered && (
+        <div className={classes.info}>
+          <h3 className={classes["info--title"]}>Not registered yet?</h3>
+          <p>Just click on "Register" tab and fill out the form.</p>
+          <p>
+            It's completely <span className={classes["info--free"]}>free!</span>
+          </p>
+        </div>
+      )}
+      {props.isRegistered && (
+        <div className={classes.info}>
+          <h3 className={classes["info--title"]}>You can now log in!</h3>
+          <p>
+            Fill in the username and password you just entered in register form
+            to continue!
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -1,0 +1,18 @@
+.user-header-container {
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(118, 230, 230);
+}
+
+.user-title, .not-logged-in-text {
+  margin: 0;
+  padding: 0;
+}
+
+.not-logged-in-text {
+  font-size: 14px;
+  font-style: italic;
+}

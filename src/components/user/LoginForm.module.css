@@ -1,3 +1,8 @@
+.login-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .form {
   margin: 1rem 0;
   height: 19rem;
@@ -61,4 +66,25 @@
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;
+}
+
+.info {
+  margin-left: 6px;
+}
+
+.info--title {
+  text-align: center;
+}
+
+.info p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.info--free {
+  color: #aa0b20;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: bold;
 }

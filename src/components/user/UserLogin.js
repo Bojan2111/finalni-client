@@ -5,8 +5,9 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 const UserLogin = (props) => {
-  const [isRegisterFormShown, setIsRegisterFormShown] = useState(false);
   const [isLoginFormShown, setIsLoginFormShown] = useState(true);
+  const [isRegisterFormShown, setIsRegisterFormShown] = useState(false);
+  const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
   const showLoginHandler = () => {
     setIsRegisterFormShown(false);
@@ -24,6 +25,8 @@ const UserLogin = (props) => {
         `Username: ${userData.username}\n` +
         `Password: ${userData.password}`
     );
+    props.onLogin(userData.username);
+    props.onClose();
   };
 
   const confirmRegisterHandler = (userData) => {
@@ -34,6 +37,9 @@ const UserLogin = (props) => {
         Password: ${userData.password}
         Confirmed password: ${userData.repeatPassword}`
     );
+    setIsRegisterSuccess(true);
+    setIsLoginFormShown(true);
+    setIsRegisterFormShown(false);
   };
 
   return (
@@ -50,7 +56,11 @@ const UserLogin = (props) => {
         />
       )}
       {isLoginFormShown && (
-        <LoginForm onConfirm={confirmLoginHandler} onCancel={props.onClose} />
+        <LoginForm
+          onConfirm={confirmLoginHandler}
+          onCancel={props.onClose}
+          isRegistered={isRegisterSuccess}
+        />
       )}
     </Modal>
   );
