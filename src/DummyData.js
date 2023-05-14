@@ -1,4 +1,4 @@
-const data = {
+const DummyData = {
   kuriri: [
     { id: 1, ime: "Marko petrov", rodjenje: 1987 },
     { id: 2, ime: "Andrea Marin", rodjenje: 1990 },
@@ -52,4 +52,4 @@ const data = {
 //   return data;
 // };
 
-export default data;
+export default DummyData;

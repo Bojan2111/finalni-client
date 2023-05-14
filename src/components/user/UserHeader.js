@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserLogin from "./UserLogin";
 import classes from "./UserHeader.module.css";
 
-const UserHeader = () => {
+const UserHeader = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
@@ -14,11 +14,13 @@ const UserHeader = () => {
   const userLogInStatusHandler = (username) => {
     setUsername(username);
     setIsLoggedIn(true);
+    props.loggedStatus(isLoggedIn);
   };
 
   const userLogOutStatusHandler = () => {
     setUsername("");
     setIsLoggedIn(false);
+    props.loggedStatus(isLoggedIn);
   };
 
   const closeLoginHandler = () => {
