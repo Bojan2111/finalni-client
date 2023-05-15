@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from "../../store/auth-context";
 import Modal from "../UI/Modal";
 import LoginRegisterToggler from "./LoginRegisterToggler";
 import LoginForm from "./LoginForm";
@@ -8,6 +9,7 @@ const UserLogin = (props) => {
   const [isLoginFormShown, setIsLoginFormShown] = useState(true);
   const [isRegisterFormShown, setIsRegisterFormShown] = useState(false);
   const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+  const ctx = useContext(AuthContext);
 
   const showLoginHandler = () => {
     setIsRegisterFormShown(false);
@@ -45,7 +47,7 @@ const UserLogin = (props) => {
   return (
     <Modal onClose={props.onClose}>
       <LoginRegisterToggler
-        isLogin={isLoginFormShown}
+        isLogin={ctx.isLoggedIn}
         showLogin={showLoginHandler}
         showRegister={showRegisterHandler}
       />

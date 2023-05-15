@@ -1,4 +1,5 @@
 import React from "react";
+import AuthContext from "./store/auth-context";
 import Header from "./components/Layout/Header";
 import Content from "./components/Layout/Content";
 
@@ -18,10 +19,10 @@ const headerData = {
 
 function App() {
   return (
-    <div>
+    <Fragment>
       <Header headerData={headerData} />
       <Content />
-    </div>
+    </Fragment>
   );
 }
 
