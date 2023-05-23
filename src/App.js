@@ -1,5 +1,4 @@
-import React from "react";
-import AuthContext from "./store/auth-context";
+import React, { Fragment } from "react";
 import Header from "./components/Layout/Header";
 import Content from "./components/Layout/Content";
 

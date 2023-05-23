@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import UserLogin from "./UserLogin";
+import { AuthContext } from "../../store/auth-context";
 import classes from "./UserHeader.module.css";
 
 const UserHeader = (props) => {
   const [showLogin, setShowLogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const { isLoggedIn, username, login, logout } = useContext(AuthContext);
 
   const loginBtnHandler = () => {
     setShowLogin(true);
   };
 
   const userLogInStatusHandler = (username) => {
-    setUsername(username);
-    setIsLoggedIn(true);
-    props.loggedStatus(isLoggedIn);
+    login(username);
   };
 
   const userLogOutStatusHandler = () => {
-    setUsername("");
-    setIsLoggedIn(false);
-    props.loggedStatus(isLoggedIn);
+    logout();
   };
 
   const closeLoginHandler = () => {

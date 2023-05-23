@@ -1,38 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../store/auth-context";
 
 const TableBody = (props) => {
+  const { isLoggedIn } = useContext(AuthContext);
   return (
     <tbody>
-      {props.data.map((item, index) => {
-        console.log("Item :", item.id);
+      {props.data.map((item) => {
         return (
           <tr key={item.id}>
             {Object.entries(item).map((entry) => {
               return (
-                <td key={entry[0]}>
-                  <span>{entry[1]}</span>
-                </td>
+                !(entry[0] === "id") &&
+                !(!isLoggedIn && entry[0] === "kurirIme") && (
+                  <td key={entry[0]}>
+                    <span>{entry[1]}</span>
+                  </td>
+                )
               );
             })}
+
+            {isLoggedIn && (
+              <td>
+                <button>Brisanje</button>
+              </td>
+            )}
           </tr>
         );
       })}
     </tbody>
-    // <tbody>
-    //   {props.data.map((item) => (
-    //     <tr>
-    //       {props.children}
-    //       {/* <td>{item.id}</td>
-    //       <td>{item.ime}</td>
-    //       <td>{item.rodjenje}</td> */}
-    //       {props.isLoggedIn && (
-    //         <td>
-    //           <button>Delete</button>
-    //         </td>
-    //       )}
-    //     </tr>
-    //   ))}
-    // </tbody>
   );
 };
 
