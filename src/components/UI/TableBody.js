@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../store/auth-context";
+import { PaketContext } from "../../store/paket-context";
 
 const TableBody = (props) => {
   const { isLoggedIn } = useContext(AuthContext);
+  const { paketFuncs } = useContext(PaketContext);
   return (
     <tbody>
       {props.data.map((item) => {
@@ -20,9 +22,18 @@ const TableBody = (props) => {
             })}
 
             {isLoggedIn && (
-              <td>
-                <button>Brisanje</button>
-              </td>
+              <>
+                <td>
+                  <button onClick={paketFuncs.sendEditId(item.id)}>
+                    Izmena
+                  </button>
+                </td>
+                <td>
+                  <button onClick={paketFuncs.sendEditId(item.id)}>
+                    Brisanje
+                  </button>
+                </td>
+              </>
             )}
           </tr>
         );

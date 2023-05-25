@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
+import KuririDropdown from "../kurir/KuririDropdown";
+import ApiData from "../../api/ApiData";
+import { AuthContext } from "../../store/auth-context";
 import { PaketContext } from "../../store/paket-context";
 import classes from "./PaketForm.module.css";
-import classes from "./RegisterForm.module.css";
+// import classes from "./RegisterForm.module.css";
 
 const posiljalacPattern =
   /^(?=.{3,32}$)(?![_.-])(?!.*[_.]{2})[a-zA-Z0-9._-]+(?<![_.])$/;
@@ -12,12 +15,11 @@ const isEmpty = (value) => value.trim() === "";
 const isValidPosiljalac = (value) => posiljalacPattern.test(value.trim());
 const isValidPrimalac = (value) => primalacPattern.test(value.trim());
 const isValidTezina = (value) => tezinaPattern.test(value.trim());
-const isValidPostarina = (value) => value.trim().length > 0;
+const isValidPostarina = (value) => value.trim() > 0;
 
 const PaketForm = () => {
-  const { tableHeaders, showAllTableHeaders, showSomeTableHeaders } =
-    useContext(PaketContext);
-  const [httpAction, setHttpAction] = useState("POST");
+  const { paketValues, paketFuncs } = useContext(PaketContext);
+  const { jwt_token } = useContext(AuthContext);
   const [formInputsValidity, setFormInputsValidity] = useState({
     posiljalac: true,
     primalac: true,
@@ -61,17 +63,65 @@ const PaketForm = () => {
       return;
     }
 
-    useEffect(() => {
-      let url = "";
-      fetch(url, { method: httpAction, headers: headers });
-    });
+    // useEffect(() => {
+    let url = ApiData.baseUrl + ApiData.paketi;
+    let httpAction = paketValues.httpAction;
+    let editingId = paketValues.tempData.id;
+    let kurirId = paketValues.tempData.kurirId;
+    let sendData;
 
-    onConfirm({
-      posiljalac: enteredPosiljalac,
-      primalac: enteredPrimalac,
-      tezina: enteredTezina,
-      postarina: enteredPostarina,
-    });
+    if (httpAction === "POST") {
+      // url = baseUrl + paketiEndpoint;
+      sendData = {
+        posiljalac: enteredPosiljalac,
+        primalac: enteredPrimalac,
+        tezina: enteredTezina,
+        postarina: enteredPostarina,
+        kurirId: kurirId,
+      };
+    } else {
+      url += editingId.toString();
+      sendData = {
+        id: editingId,
+        posiljalac: enteredPosiljalac,
+        primalac: enteredPrimalac,
+        tezina: enteredTezina,
+        postarina: enteredPostarina,
+        kurirId: kurirId,
+      };
+    }
+
+    let headers = { "Content-Type": "application/json" };
+    if (jwt_token !== "") {
+      headers.Authorization = "Bearer " + jwt_token;
+    }
+    if (formIsValid) {
+      fetch(url, {
+        method: httpAction,
+        headers: headers,
+        body: JSON.stringify(sendData),
+      })
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) {
+            console.log("Record submitted successfully");
+            paketFuncs.toggleCreateEditAction("create");
+            paketFuncs.clearTempData();
+          } else {
+            console.log("Error occured with code " + response.status);
+            alert("Desila se greska!");
+          }
+        })
+        .catch((error) => console.log(error));
+      return false;
+    }
+    // }, [jwt_token]);
+
+    // onConfirm({
+    //   posiljalac: enteredPosiljalac,
+    //   primalac: enteredPrimalac,
+    //   tezina: enteredTezina,
+    //   postarina: enteredPostarina,
+    // });
   };
 
   const posiljalacControlClasses = `${classes.control} ${
@@ -114,11 +164,9 @@ const PaketForm = () => {
           <input type="number" id="postarina" ref={postarinaInputRef} />
           {!formInputsValidity.postarina && <p>Unesite validnu postarinu!</p>}
         </div>
-        <div>
-          <select>{}</select>
-        </div>
+        <KuririDropdown />
         <div className={classes.actions}>
-          <button type="button" onClick={props.onCancel}>
+          <button type="button" onClick={paketFuncs.clearTempData}>
             Cancel
           </button>
           <button className={classes.submit}>Confirm</button>

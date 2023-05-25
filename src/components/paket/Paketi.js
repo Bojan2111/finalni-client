@@ -7,26 +7,26 @@ import Card from "../UI/Card";
 import Table from "../UI/Table";
 import classes from "./Paketi.module.css";
 
+// const showTableHeader = () => {
+//   if (jwt_token !== "") {
+//     funcs.showAllTableHeaders();
+//   } else {
+//     funcs.showSomeTableHeaders();
+//   }
+// };
+
+// const sendTempData = (data) => {
+//   funcs.createTempData(data);
+// };
+
 const Paketi = () => {
   const [data, setData] = useState([]);
   const { jwt_token } = useContext(AuthContext);
-  const { tableHeaders, showAllTableHeaders, showSomeTableHeaders } =
-    useContext(PaketContext);
-
-  // const showTableHeader = () => {
-  //   if (jwt_token !== undefined) {
-  //     showAllTableHeaders();
-  //     return;
-  //   } else {
-  //     showSomeTableHeaders();
-  //     return;
-  //   }
-  // };
-
+  const { paketValues, paketFuncs } = useContext(PaketContext);
   useEffect(() => {
     let url = ApiData.baseUrl + ApiData.paketi;
     let headers = { "Content-Type": "application/json" };
-    if (jwt_token !== undefined) {
+    if (jwt_token !== "") {
       headers.Authorization = "Bearer " + jwt_token;
     }
     fetch(url, {
@@ -37,13 +37,14 @@ const Paketi = () => {
         if (response.status === 200) {
           console.log("Data obtained successfully");
           response.json().then((data) => {
-            // useCallback(showTableHeader());
-            if (jwt_token !== undefined) {
-              showAllTableHeaders();
+            // showTableHeader();
+            if (jwt_token !== "") {
+              paketFuncs.showAllTableHeaders();
             } else {
-              showSomeTableHeaders();
+              paketFuncs.showSomeTableHeaders();
             }
             setData(data);
+            // paketFuncs.createTempData(data);
           });
         } else {
           console.log("Error occured with code " + response.status);
@@ -59,8 +60,8 @@ const Paketi = () => {
   return (
     <Card otherClasses={classes.centerCard}>
       <h2>Prikaz svih paketa</h2>
-      <Table headers={tableHeaders} data={data} />
-      {jwt_token !== undefined && <PaketForm />}
+      <Table headers={paketValues.tableHeaders} data={data} />
+      {jwt_token !== "" && <PaketForm />}
     </Card>
   );
 };

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [jwt_token, setJwt_token] = useState(undefined);
+  const [jwt_token, setJwt_token] = useState("");
 
   const login = (username) => {
     setIsLoggedIn(true);
@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsLoggedIn(false);
     setUsername("");
-    setJwt_token(undefined);
+    setJwt_token("");
   };
 
   const createJwt = (token) => {

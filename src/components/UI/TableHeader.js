@@ -10,7 +10,8 @@ const TableHeader = (props) => {
         {props.headers.map((item) => (
           <td key={item}>{item}</td>
         ))}
-        {isLoggedIn && <td>Akcija</td>}
+        {isLoggedIn && <td>Izmena</td>}
+        {isLoggedIn && <td>Brisanje</td>}
       </tr>
     </thead>
   );
